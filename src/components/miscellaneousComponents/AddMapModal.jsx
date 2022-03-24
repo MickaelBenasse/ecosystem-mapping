@@ -25,7 +25,7 @@ import { useHistory, withRouter } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import SelectLocationComponent from "../regionComponents/SelectLocationComponent";
-import SelectIndustry from "components/industryComponant/SelectIndustry";
+import SelectIndustry from "../IndustryComponant/SelectIndustry";
 import Service from "../../service/RegionServices";
 import { isLoggedIn } from "../../service/AuthenticationService";
 import "../../assets/fonts/fonts.css";
