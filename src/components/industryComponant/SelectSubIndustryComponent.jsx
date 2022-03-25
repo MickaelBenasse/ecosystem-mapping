@@ -1,8 +1,10 @@
 import React from "react";
 
 import { Box, Select } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 const SelectSubIndustryComponent = (props) => {
+  const { t } = useTranslation();
   let subIndustries;
 
   if (props.data.length > 0) {
@@ -14,7 +16,9 @@ const SelectSubIndustryComponent = (props) => {
       <Select
         size="sm"
         disabled={!(subIndustries && subIndustries.length > 0)}
-        placeholder="Select Sub-Industry"
+        placeholder={t(
+          "startup.component.popup.select.sub.industry.placeholder"
+        )}
         value={props.subIndustry}
         onChange={(e) => {
           props.selectedSubIndustry(e.target.value);
