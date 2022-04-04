@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 
 import {
+  Box,
+  Button,
+  Input,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
-  useDisclosure,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Select,
-  Box,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { Input } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
 const AddOrganisation = ({ setData, orgCreated }) => {
@@ -62,12 +62,16 @@ const AddOrganisation = ({ setData, orgCreated }) => {
             <form onSubmit={(e) => handleDetailsSubmit(e)}>
               <Input
                 onChange={(e) => setOrgName(e.target.value)}
-                placeholder="Organisation Name"
+                placeholder={t(
+                  "mapping.popup.component.placeholder.organisation.name"
+                )}
               />
               <Box mt="10px" />
               <Select
                 onChange={(e) => setStartRange(e.target.value)}
-                placeholder="Select Start Range"
+                placeholder={t(
+                  "mapping.popup.component.placeholder.start.range.selection"
+                )}
               >
                 {Stages.map((i, j) => {
                   return (
@@ -80,7 +84,9 @@ const AddOrganisation = ({ setData, orgCreated }) => {
               <Box mt="10px" />
               <Select
                 onChange={(e) => setEndRange(e.target.value)}
-                placeholder="Select End Range"
+                placeholder={t(
+                  "mapping.popup.component.placeholder.end.range.selection"
+                )}
               >
                 {Stages.map((i, j) => {
                   return (
@@ -93,7 +99,9 @@ const AddOrganisation = ({ setData, orgCreated }) => {
               <Box mt="10px" />
               <Select
                 onChange={(e) => setType(e.target.value)}
-                placeholder="Select Type"
+                placeholder={t(
+                  "mapping.popup.component.placeholder.start.range.selection"
+                )}
               >
                 {Type.map((i, j) => {
                   return (
@@ -107,7 +115,9 @@ const AddOrganisation = ({ setData, orgCreated }) => {
               <Input
                 onChange={(e) => setOrgUrl(e.target.value)}
                 type="url"
-                placeholder="Private URL"
+                placeholder={t(
+                  "mapping.popup.component.placeholder.private.URL"
+                )}
               />
               <Box mt="10px" />
               <Box>
