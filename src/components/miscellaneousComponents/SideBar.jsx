@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import { ProSidebar } from "react-pro-sidebar";
 import { Box, Image } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { useTranslation } from "react-i18next";
 
 import { SliderButton } from "helper/constant";
 import "react-pro-sidebar/dist/css/styles.css";
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const { t } = useTranslation();
 
   return (
     <div className="l-pad" style={{ zIndex: "100" }}>
@@ -31,8 +33,7 @@ const SideBar = () => {
             <div className="mg-left">
               <p className="heading-sidebar">Service templates</p>
               <p className="sidebar-desc">
-                Drag and drop pre-set services on the map on the left to
-                familiarize yourself with the tool or get inspired
+                {t("mapping.home.page.side.bar.content")}
               </p>
             </div>
           )}
