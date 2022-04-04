@@ -100,7 +100,7 @@ const AddOrganisation = ({ setData, orgCreated }) => {
               <Select
                 onChange={(e) => setType(e.target.value)}
                 placeholder={t(
-                  "mapping.popup.component.placeholder.start.range.selection"
+                  "mapping.popup.component.placeholder.type.select"
                 )}
               >
                 {Type.map((i, j) => {
