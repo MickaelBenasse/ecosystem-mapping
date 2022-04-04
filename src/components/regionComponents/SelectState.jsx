@@ -1,14 +1,17 @@
 import React from "react";
 
-import { Select, Box } from "@chakra-ui/react";
+import { Box, Select } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 const SelectState = (props) => {
+  const { t } = useTranslation();
+
   return (
     <Box>
       <Select
         size="sm"
         disabled={props.data.length <= 0}
-        placeholder="Select State"
+        placeholder={t("mapping.popup.component.placeholder.state.selection")}
         value={props.state}
         onChange={(e) => {
           props.selectedState(e.target.value);
