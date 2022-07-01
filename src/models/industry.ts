@@ -20,15 +20,15 @@ export class Industry {
    * @param industry An industry API response.
    * @return {Industry} An instance of Industry.
    */
-  createIndustryFromAPI(industry: any): Industry {
+  private static createIndustryFromAPI(industry: any): Industry {
     // Format the subIndustries with the model.
     const subIndustries = industry.subIndustries.map((subIndustry) => {
       return SubIndustry.createSubIndustryFromAPI(subIndustry);
     });
 
     return new Industry({
-      id: industry.industryId,
-      name: industry.industryName,
+      id: industry.industry.industryId,
+      name: industry.industry.industryName,
       subIndustries: subIndustries,
     });
   }
@@ -37,15 +37,17 @@ export class Industry {
    * Get request to retrieve all the industries and then format them through the model.
    * @return {array<Industry>} An array of Industry.
    */
-  getAllIndustries(): Promise<Industry[]> {
-    const res: any = axios({
+  static getAllIndustries(): Promise<Industry[]> {
+    return axios({
       method: "get",
       url: `https://regionselectbucket.s3.ap-south-1.amazonaws.com/industries.json`,
-    });
-
-    return res.industries.map((industry) => {
-      return this.createIndustryFromAPI(industry);
-    });
+    })
+      .then((res: any) => {
+        return res.data.industries.map((industry) => {
+          return this.createIndustryFromAPI(industry);
+        });
+      })
+      .catch((err) => console.log(err));
   }
 }
 
@@ -67,7 +69,7 @@ class SubIndustry {
    * @param subIndustry A sub-industry API response.
    * @return {SubIndustry} An instance of SubIndustry.
    */
-  static createSubIndustryFromAPI(subIndustry: any): SubIndustry {
+  public static createSubIndustryFromAPI(subIndustry: any): SubIndustry {
     return new SubIndustry({
       id: subIndustry.industryId,
       name: subIndustry.industryName,
