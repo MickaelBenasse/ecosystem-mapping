@@ -11,7 +11,7 @@ export class Location {
   region: string;
   city: string;
 
-  constructor({ id, continent, country, region, city }) {
+  constructor({ id = null, continent, country, region, city }) {
     this.id = id;
     this.continent = continent;
     this.country = country;
@@ -24,7 +24,7 @@ export class Location {
    * @param location An location API response.
    * @return {Location} An instance of Location.
    */
-  createLocationFromAPI(location: any): Location {
+  private static createLocationFromAPI(location: any): Location {
     return new Location({
       id: location.locationId,
       continent: location.continent,
@@ -35,17 +35,15 @@ export class Location {
   }
 
   /**
-   * Get request to retrieve all the locations and then format them through the model.
-   * @return {array<Location>} An array of Location.
+   * Get request to retrieve all the locations.
+   * @return {array} An array of json object.
    */
-  getAllLocations(): Promise<Location[]> {
-    const res: any = axios({
+  static getAllLocations(): Promise<[]> {
+    return axios({
       method: "get",
-      url: `https://regionselectbucket.s3.ap-south-1.amazonaws.com/locations.json`,
-    });
-
-    return res.locations.map((location) => {
-      return this.createLocationFromAPI(location);
-    });
+      url: `https://regionselectbucket.s3.ap-south-1.amazonaws.com/regionselection.json`,
+    })
+      .then((res: any) => res.data)
+      .catch((error) => console.log(error));
   }
 }

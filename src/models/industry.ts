@@ -34,19 +34,15 @@ export class Industry {
   }
 
   /**
-   * Get request to retrieve all the industries and then format them through the model.
-   * @return {array<Industry>} An array of Industry.
+   * Get request to retrieve all the industries with their sub-industries.
+   * @return {array} An array of Industry.
    */
-  static getAllIndustries(): Promise<Industry[]> {
+  static getAllIndustries(): Promise<[]> {
     return axios({
       method: "get",
       url: `https://regionselectbucket.s3.ap-south-1.amazonaws.com/industries.json`,
     })
-      .then((res: any) => {
-        return res.data.industries.map((industry) => {
-          return this.createIndustryFromAPI(industry);
-        });
-      })
+      .then((res: any) => res.data.industries)
       .catch((err) => console.log(err));
   }
 }
