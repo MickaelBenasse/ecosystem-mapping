@@ -1,8 +1,24 @@
 import moment from "moment";
+
 import { graphCMSRequest } from "../service/graphCMS";
 import { Authentication } from "../service/authentication";
+import { Industry } from "./industry";
+import { Location } from "./location";
+import { Service } from "./service";
 
 export class Map {
+  id: string;
+  name: string;
+  description: string;
+  mapStatus: string;
+  owner: any;
+  creationDate: moment.Moment;
+  lastModificationDate: moment.Moment;
+  industries: Industry[];
+  locations: Location[];
+  services: Service[];
+  filters: any;
+
   constructor({
     id = null,
     name,
@@ -29,23 +45,23 @@ export class Map {
     this.services = services;
   }
 
-  static createMapFromAPI({ mapQuery }) {
+  static createMapFromAPI({ map }) {
     return new Map({
-      id: mapQuery.id,
-      name: mapQuery.name,
-      description: mapQuery.description,
-      mapStatus: mapQuery.mapStatus,
-      creationDate: mapQuery.creation,
-      lastModificationDate: mapQuery.lastModification,
-      locations: mapQuery.location,
-      industries: mapQuery.industry,
-      services: mapQuery.service,
+      id: map.id,
+      name: map.name,
+      description: map.description,
+      mapStatus: map.mapStatus,
+      creationDate: map.creation,
+      lastModificationDate: map.lastModification,
+      locations: map.location,
+      industries: map.industry,
+      services: map.service,
     });
   }
 
   /**
    * Get all the maps linked to the connected user.
-   * @return {Promise<{connect: [{id: *}]}>}
+   * @return {array<Map>} An array of maps.
    */
   static async getMapsByUser() {
     const query = `
@@ -81,14 +97,16 @@ export class Map {
       }
     `;
 
-    return (await graphCMSRequest(query)).ecosystemMaps;
+    const res = (await graphCMSRequest(query)).ecosystemMaps;
+
+    return res.map((map) => Map.createMapFromAPI({ map: map }));
   }
 
   // TODO Check the result and pass all services inside the service model.
   /**
-   *
-   * @param id
-   * @return {Promise<any>}
+   *  Get a map by its id.
+   * @param id The id of the map to get.
+   * @return {Map} An instance of Map.
    */
   static async getMapById({ id }) {
     const query = ` 
